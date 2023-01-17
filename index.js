@@ -1,5 +1,73 @@
 function hasTargetSum(array, target) {
-  // Write your algorithm here
+  for (let i = 0; i < array.length; i++) {
+    // n steps (depending on the length of the input array)
+    const complement = target - array[i];
+    for (let j = i + 1; j < array.length; j++) {
+      // n * n steps (nested loop!)
+      if (array[j] === complement) return true;
+    }
+  }
+  // 1 step
+  return false;
+}
+
+// O(n) runtime
+function findSock(array) {
+  for (const item of array) {
+    if (item === "sock") return "sock";
+  }
+}
+
+// O(1) runtime
+function findSock(object) {
+  if (object.sock) return "sock";
+}
+
+function hasTargetSum(array, target) {
+  // create an object to keep track of all the numbers we've seen
+  const seenNumbers = {};
+  // iterate over the array of numbers
+  for (const number of array) {
+    // for the current number, identify a complementary number that adds to our target
+    // (for example: if our number is 2, and the target is 5, the complementary number is 3)
+    const complement = target - number;
+    // check if any of the keys in our object is the complement to the current number
+    // if so, return true
+    if (seenNumbers[complement]) return true;
+    // save the current number as the key on our object so we can check it later against other numbers
+    seenNumbers[number] = true;
+  }
+  // if we reach the end of the array, return false
+  return false;
+}
+
+function hasTargetSum(array, target) {
+  // 1 step
+  const seenNumbers = {};
+  for (const number of array) {
+    // n steps
+    const complement = target - number;
+    // n steps
+    if (seenNumbers[complement]) return true;
+    // n steps
+    seenNumbers[number] = true;
+  }
+  // 1 step
+  return false;
+}
+
+function hasTargetSum(array, target) {
+  const seenNumbers = new Set(); // initialize an empty Set
+  for (const number of array) {
+    const complement = target - number;
+
+    // .has returns true if the Set includes the complement
+    if (seenNumbers.has(complement)) return true;
+
+    // .add adds the number to the Set
+    seenNumbers.add(number);
+  }
+  return false;
 }
 
 /* 
